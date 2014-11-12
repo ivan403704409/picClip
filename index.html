@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<style>
+#clipWrapper{ position: relative; width: 400px; height: 225px; background-color: #000; }
+#clipWrapper img{ width: 100%; }
+#clipWrapper .clipLayer{ opacity: .5; }
+#clipWrapper .clipImg{ position: absolute; clip: rect(0 100px 50px 0); }
+#clipWrapper .clipArea{ position: absolute; left:0; top:0; box-sizing:border-box;  border: 1px dashed #fff; }
+</style>
+<body>
+	<div id="clipWrapper">
+		<img class="clipImg" src="1.jpg" alt="">
+		<img class="clipLayer" src="1.jpg" alt="">
+		<div class="clipArea" style="width: 100px; height: 50px;"></div>			
+	</div>
+<script src="drag.js" ></script>
+<script>
+var oClipArea = document.getElementsByClassName('clipArea')[0];
+var oClipImg = document.getElementsByClassName('clipImg')[0];
+
+new Drag(oClipArea, {
+	moveCallBack: function (){
+		var l = oClipArea.style.left,
+			t = oClipArea.style.top,
+			w = oClipArea.style.width,
+			h = oClipArea.style.height;
+
+		var r = parseFloat(l) + parseFloat(w) + 'px',
+			b = parseFloat(t) + parseFloat(h) + 'px';
+
+		console.log( t, r, b, l );
+		oClipImg.style.clip = 'rect(' + t + ',' +  r + ',' + b + ',' + l + ')';
+	}
+});
+</script>
+</body>
+</html>
